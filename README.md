@@ -1,4 +1,4 @@
-CAVEZ / Conda Automatic Virtual Environments for ZSH
+CAVEZ / Conda Automatic Virtual Environments for Zsh
 ====================================================
 
 This is another tool that automatically switches a Python virtual environment based on the directory you are in.
