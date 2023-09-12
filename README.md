@@ -11,7 +11,7 @@ Why another tool?
 
   * I use Micromamba implementation of Conda, which is rarely supported by other similar tools
   * I prefer to keep a virtual environment in the project directory,
-    e.g. `micromamba create -c conda-forge -p ./.venv python=3.11`,
+    e.g. `micromamba create -p ./.venv`,
     which is rarely supported by other similar tools as well
   * This implementation is dead simple
   * It doesn't override `cd`, which I find clumsy
