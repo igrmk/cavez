@@ -12,15 +12,13 @@ else
 	alias _cavez_conda_implementation=conda
 fi
 
-export _CAVEZ_AUTO_ACTIVATED=
-
 _cavez_auto_activate() {
 	local found="$(_cavez_find_up "${CAVEZ_VENV_DIR_NAME:-.venv}" "$PWD")"
 	[[ -n "$found" ]] && local found="$(realpath "$found")"
 
 	if [[ -n "$_CAVEZ_AUTO_ACTIVATED" ]] && [[ "$_CAVEZ_AUTO_ACTIVATED" != "$found" ]]; then
 		_cavez_conda_implementation deactivate
-		export _CAVEZ_AUTO_ACTIVATED=
+		unset _CAVEZ_AUTO_ACTIVATED
 	fi
 
 	if [[ -n "$found" ]] && [[ "$_CAVEZ_AUTO_ACTIVATED" != "$found" ]]; then
