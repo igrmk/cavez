@@ -4,15 +4,13 @@ _cavez::find_dir_up() {
 	_cavez::find_dir_up "$1" "$(dirname "$2")"
 }
 
-if type conda > /dev/null; then
-	alias _cavez::conda_implementation=conda
-elif type mamba > /dev/null; then
-	alias _cavez::conda_implementation=mamba
-elif type micromamba > /dev/null; then
-	alias _cavez::conda_implementation=micromamba
-else
-	alias _cavez::conda_implementation=conda
-fi
+_cavez::conda_flavour() {
+	[[ -n "$CAVEZ_CONDA_FLAVOUR" ]] && $(CAVEZ_CONDA_FLAVOUR) "$@" && return
+	type conda > /dev/null && conda "$@" && return
+	type mamba > /dev/null && mamba "$@" && return
+	type micromamba > /dev/null && micromamba "$@" && return
+	echo "Cannot find any flavour of conda"
+}
 
 _cavez::auto_activate_conda_env() {
 	local found_env_dir
@@ -20,12 +18,12 @@ _cavez::auto_activate_conda_env() {
 	[[ -n "$found_env_dir" ]] && found_env_dir="$(realpath "$found_env_dir")"
 
 	if [[ -n "$_CAVEZ_AUTO_ACTIVATED_ENV" ]] && [[ "$_CAVEZ_AUTO_ACTIVATED_ENV" != "$found_env_dir" ]]; then
-		_cavez::conda_implementation deactivate
+		_cavez::conda_flavour deactivate
 		unset _CAVEZ_AUTO_ACTIVATED_ENV
 	fi
 
 	if [[ -n "$found_env_dir" ]] && [[ "$_CAVEZ_AUTO_ACTIVATED_ENV" != "$found_env_dir" ]]; then
-		_cavez::conda_implementation activate "$found_env_dir"
+		_cavez::conda_flavour activate "$found_env_dir"
 		export _CAVEZ_AUTO_ACTIVATED_ENV="$CONDA_PREFIX"
 	fi
 }
