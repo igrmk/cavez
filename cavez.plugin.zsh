@@ -1,6 +1,6 @@
 _cavez::find_dir_up() {
-	[[ / == "$2" ]] && return 1
-	[[ -d "$2/$1" ]] && echo "$2/$1" && return
+	[[ / == "$2" ]] && return
+	[[ -d "$2/$1" ]] && printf "%s\n" "$(realpath "$2/$1")" && return
 	_cavez::find_dir_up "$1" "$(dirname "$2")"
 }
 
@@ -15,7 +15,6 @@ _cavez::conda_flavour() {
 _cavez::auto_activate_conda_env() {
 	local found_env_dir
 	found_env_dir="$(_cavez::find_dir_up "${CAVEZ_VENV_DIR_NAME:-.venv}" "$PWD")"
-	[[ -n "$found_env_dir" ]] && found_env_dir="$(realpath "$found_env_dir")"
 
 	if [[ -n "$_CAVEZ_AUTO_ACTIVATED_ENV" ]] && [[ "$_CAVEZ_AUTO_ACTIVATED_ENV" != "$found_env_dir" ]]; then
 		_cavez::conda_flavour deactivate
@@ -30,3 +29,5 @@ _cavez::auto_activate_conda_env() {
 
 _cavez::auto_activate_conda_env
 chpwd_functions+=(_cavez::auto_activate_conda_env)
+
+alias cavez-create-new-env='micromamba create -p ./"${CAVEZ_VENV_DIR_NAME:-.venv}"'
