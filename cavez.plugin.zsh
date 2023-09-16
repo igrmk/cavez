@@ -1,5 +1,7 @@
 _cavez::find_up() {
-	[[ / == "$2" ]] && return 1 || [[ -e "$2/$1" ]] && echo "$2/$1" && return || _cavez::find_up "$1" "$(dirname "$2")"
+	[[ / == "$2" ]] && return 1
+	[[ -d "$2/$1" ]] && echo "$2/$1" && return
+	_cavez::find_up "$1" "$(dirname "$2")"
 }
 
 if type conda > /dev/null; then
@@ -13,8 +15,9 @@ else
 fi
 
 _cavez::auto_activate() {
-	local found="$(_cavez::find_up "${CAVEZ_VENV_DIR_NAME:-.venv}" "$PWD")"
-	[[ -n "$found" ]] && local found="$(realpath "$found")"
+	local found
+	found="$(_cavez::find_up "${CAVEZ_VENV_DIR_NAME:-.venv}" "$PWD")"
+	[[ -n "$found" ]] && found="$(realpath "$found")"
 
 	if [[ -n "$_CAVEZ_AUTO_ACTIVATED" ]] && [[ "$_CAVEZ_AUTO_ACTIVATED" != "$found" ]]; then
 		_cavez::conda_implementation deactivate
