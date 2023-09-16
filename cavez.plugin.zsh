@@ -1,7 +1,7 @@
-_cavez::find_up() {
+_cavez::find_dir_up() {
 	[[ / == "$2" ]] && return 1
 	[[ -d "$2/$1" ]] && echo "$2/$1" && return
-	_cavez::find_up "$1" "$(dirname "$2")"
+	_cavez::find_dir_up "$1" "$(dirname "$2")"
 }
 
 if type conda > /dev/null; then
@@ -14,21 +14,21 @@ else
 	alias _cavez::conda_implementation=conda
 fi
 
-_cavez::auto_activate() {
-	local found
-	found="$(_cavez::find_up "${CAVEZ_VENV_DIR_NAME:-.venv}" "$PWD")"
-	[[ -n "$found" ]] && found="$(realpath "$found")"
+_cavez::auto_activate_conda_env() {
+	local found_env_dir
+	found_env_dir="$(_cavez::find_dir_up "${CAVEZ_VENV_DIR_NAME:-.venv}" "$PWD")"
+	[[ -n "$found_env_dir" ]] && found_env_dir="$(realpath "$found_env_dir")"
 
-	if [[ -n "$_CAVEZ_AUTO_ACTIVATED" ]] && [[ "$_CAVEZ_AUTO_ACTIVATED" != "$found" ]]; then
+	if [[ -n "$_CAVEZ_AUTO_ACTIVATED_ENV" ]] && [[ "$_CAVEZ_AUTO_ACTIVATED_ENV" != "$found_env_dir" ]]; then
 		_cavez::conda_implementation deactivate
-		unset _CAVEZ_AUTO_ACTIVATED
+		unset _CAVEZ_AUTO_ACTIVATED_ENV
 	fi
 
-	if [[ -n "$found" ]] && [[ "$_CAVEZ_AUTO_ACTIVATED" != "$found" ]]; then
-		_cavez::conda_implementation activate "$found"
-		export _CAVEZ_AUTO_ACTIVATED="$CONDA_PREFIX"
+	if [[ -n "$found_env_dir" ]] && [[ "$_CAVEZ_AUTO_ACTIVATED_ENV" != "$found_env_dir" ]]; then
+		_cavez::conda_implementation activate "$found_env_dir"
+		export _CAVEZ_AUTO_ACTIVATED_ENV="$CONDA_PREFIX"
 	fi
 }
 
-_cavez::auto_activate
-chpwd_functions+=(_cavez::auto_activate)
+_cavez::auto_activate_conda_env
+chpwd_functions+=(_cavez::auto_activate_conda_env)
