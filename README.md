@@ -66,3 +66,18 @@ Source the plugin shell script in your `~/.zshrc` profile. For example
 
 Thanks to Michael Aquilina for this project https://github.com/MichaelAquilina/zsh-autoswitch-virtualenv.
 I've just copied installation instructions from it.
+
+Configuration
+-------------
+
+| Environment variable  | Description                                              |
+| --------------------- | -------------------------------------------------------- |
+| `CAVEZ_VENV_DIR_NAME` | The name of a directory containing a virtual environment |
+| `CAVEZ_VERBOSE`       | Report any actions performed by CAVEZ                    |
+
+Powerlevel10k
+-------------
+
+If you are using the Powerlevel10k Zsh theme, you may want to show only the important part of the Conda prefix:
+
+    typeset -g POWERLEVEL9K_ANACONDA_CONTENT_EXPANSION='$([[ "${CONDA_DEFAULT_ENV}" == */.venv ]] && basename "${CONDA_DEFAULT_ENV%/.venv}" || printf "%s" "${CONDA_DEFAULT_ENV}")'
