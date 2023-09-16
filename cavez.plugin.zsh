@@ -23,7 +23,7 @@ _cavez::auto_activate_conda_env() {
 
 	if [[ -n "$found_env_dir" ]] && [[ "$_CAVEZ_AUTO_ACTIVATED_ENV" != "$found_env_dir" ]]; then
 		_cavez::conda_flavour activate "$found_env_dir"
-		export _CAVEZ_AUTO_ACTIVATED_ENV="$CONDA_PREFIX"
+		_CAVEZ_AUTO_ACTIVATED_ENV="$CONDA_PREFIX"
 	fi
 }
 
