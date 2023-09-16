@@ -5,7 +5,7 @@ _cavez::find_dir_up() {
 }
 
 _cavez::conda_flavour() {
-	[[ -n "$CAVEZ_CONDA_FLAVOUR" ]] && $(CAVEZ_CONDA_FLAVOUR) "$@" && return
+	[[ -n "$CAVEZ_CONDA_FLAVOUR" ]] && ${CAVEZ_CONDA_FLAVOUR} "$@" && return
 	type conda > /dev/null && conda "$@" && return
 	type mamba > /dev/null && mamba "$@" && return
 	type micromamba > /dev/null && micromamba "$@" && return
