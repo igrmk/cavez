@@ -8,7 +8,7 @@ This tool only works if the following assumptions are met:
     or the name you specified in `CAVEZ_VENV_DIR_NAME` environment variable
 
 This tool works with conda, mamba, and micromamba.
-You can specify the conda flavor in the CAVEZ_CONDA_FLAVOUR environment variable.
+You can specify the conda flavor in the `CAVEZ_CONDA_FLAVOUR` environment variable.
 If this variable is not set, the tool will try to automatically detect which flavor is installed.
 
 Why another tool?
