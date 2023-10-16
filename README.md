@@ -81,4 +81,10 @@ Powerlevel10k
 If you are using the [Powerlevel10k](https://github.com/romkatv/powerlevel10k) Zsh theme and want to show only the important part of the Conda prefix, you can update your `~/.p10k.zsh` config file.
 Override the following variable to do it:
 
-    typeset -g POWERLEVEL9K_ANACONDA_CONTENT_EXPANSION='$([[ "${CONDA_DEFAULT_ENV}" == */.venv ]] && basename "${CONDA_DEFAULT_ENV%/.venv}" || printf "%s" "${CONDA_DEFAULT_ENV}")'
+    typeset -g POWERLEVEL9K_ANACONDA_CONTENT_EXPANSION='$(
+      if [[ "${CONDA_DEFAULT_ENV}" == */.venv ]]; then
+        basename "${CONDA_DEFAULT_ENV%/.venv}"
+      else
+        printf "%s" "${CONDA_DEFAULT_ENV}"
+      fi
+    )'
