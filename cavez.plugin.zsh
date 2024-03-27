@@ -49,4 +49,5 @@ _cavez::auto_activate_conda_env() {
 _cavez::auto_activate_conda_env
 chpwd_functions+=(_cavez::auto_activate_conda_env)
 
-alias cavez-create-new-env='micromamba create -p ./"${CAVEZ_VENV_DIR_NAME:-.venv}"'
+alias cavez-create-new-env='_cavez::conda_flavour create -p ./"${CAVEZ_VENV_DIR_NAME:-.venv}"'
+alias cavez-activate='_cavez::conda_flavour activate ./.venv'
