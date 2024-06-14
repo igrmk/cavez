@@ -70,10 +70,11 @@ I've just copied installation instructions from it.
 Configuration
 -------------
 
-| Environment variable  | Description                                                      |
-| --------------------- | ---------------------------------------------------------------- |
-| `CAVEZ_VENV_DIR_NAME` | The name of a directory containing a virtual environment         |
-| `CAVEZ_VERBOSE`       | Report any actions performed by CAVEZ if the value equals "true" |
+| Environment variable   | Description                                                              |
+| ---------------------- | ------------------------------------------------------------------------ |
+| `CAVEZ_VENV_DIR_NAME`  | The name of a directory containing a virtual environment                 |
+| `CAVEZ_VERBOSE`        | Report any actions performed by CAVEZ if the value equals "true"         |
+| `CAVEZ_SKIP_HOOK_INIT` | Skip the initialization of the hook, this is only for debugging purposes |
 
 Powerlevel10k
 -------------
