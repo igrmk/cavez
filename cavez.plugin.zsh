@@ -59,9 +59,9 @@ else
 fi
 
 alias cavez-activate='_cavez::conda_flavour activate ./"${CAVEZ_VENV_DIR_NAME:-.venv}"'
-alias cavez-create-new-env='_cavez::conda_flavour create -p ./"${CAVEZ_VENV_DIR_NAME:-.venv}"'
+alias cavez-create-new-env='_cavez::conda_flavour create -p ./"${CAVEZ_VENV_DIR_NAME:-.venv}" && cavez-activate'
 
 cavez-create-new-env-from-file() {
-	_cavez::conda_flavour create -p ./"${CAVEZ_VENV_DIR_NAME:-.venv}" --file "$1"
+	_cavez::conda_flavour create -p ./"${CAVEZ_VENV_DIR_NAME:-.venv}" --file "$1" && cavez-activate
 }
 
