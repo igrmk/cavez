@@ -42,6 +42,7 @@ _cavez::auto_activate_conda_env() {
 	# Activate the virtual environment on entering a directory
 	if {
 		[[ -n "$found_env_dir" ]] &&
+		[[ -d "$found_env_dir/conda-meta" ]] &&
 		[[ "$_CAVEZ_AUTO_ACTIVATED_ENV" != "$found_env_dir" ]]
 	}; then
 		_cavez::log "Activating virtual environment %s...\n" "$found_env_dir"
